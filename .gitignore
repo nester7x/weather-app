@@ -11,6 +11,9 @@
 # production
 /build
 
+# animations
+/src/components/animations
+
 # misc
 .DS_Store
 .env.local

@@ -1,7 +1,15 @@
 import React from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
 
-function App() {
-  return <div className='App'>I&apos;m weather app</div>;
-}
+import AppRoutes from './routes';
+import Layout from './components/Layout';
+
+const App = () => {
+  return (
+    <Router>
+      <Layout>{AppRoutes()}</Layout>
+    </Router>
+  );
+};
 
 export default App;
