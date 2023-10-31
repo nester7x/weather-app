@@ -1,7 +1,5 @@
 import React, { FC } from 'react';
 
-import './styles.css';
-
 type PreloaderProps = {
   inscription?: string;
 };
@@ -97,16 +95,9 @@ const Preloader: FC<PreloaderProps> = ({ inscription }) => {
         ></path>
       </svg>
       <div className='rain'>
-        <span className='drop'></span>
-        <span className='drop'></span>
-        <span className='drop'></span>
-        <span className='drop'></span>
-        <span className='drop'></span>
-        <span className='drop'></span>
-        <span className='drop'></span>
-        <span className='drop'></span>
-        <span className='drop'></span>
-        <span className='drop'></span>
+        {Array.from({ length: 10 }).map((_, index) => (
+          <span key={index} className='drop' />
+        ))}
       </div>
       <p className='text'>{inscription || ''}</p>
     </div>

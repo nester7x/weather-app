@@ -1,29 +1,31 @@
 import React, { FC } from 'react';
 
+import formatDate from 'utils/formatDate';
+import { weatherDataProps } from 'types/weatherTypes';
+
 import * as S from './styles';
 
 type InfoProps = {
-  tempC?: number;
-  cityName?: string;
-  country?: string;
-  time?: string;
-  icon?: string;
-  weatherType?: string;
+  weatherData: weatherDataProps | null;
 };
 
-const Info: FC<InfoProps> = ({ tempC, cityName, country, time, icon, weatherType }) => {
+const Info: FC<InfoProps> = ({ weatherData }) => {
   return (
     <S.MainInfo>
       <S.WrapperInner>
-        <S.Temperature>{tempC && <>{tempC}&deg;</>}</S.Temperature>
+        <S.Temperature>
+          {weatherData?.current?.temp_c && <>{weatherData?.current?.temp_c}&deg;</>}
+        </S.Temperature>
         <S.Info>
-          <S.CityName>{cityName}</S.CityName>
-          <S.CountryName>{country}</S.CountryName>
-          <S.Time>{time || ''}</S.Time>
+          <S.CityName>{weatherData?.location?.name}</S.CityName>
+          <S.CountryName>{weatherData?.location?.country}</S.CountryName>
+          <S.Time>{formatDate(weatherData?.location?.localtime)}</S.Time>
         </S.Info>
         <S.WeatherType>
-          {icon && <S.WeatherImg src={icon} alt='' />}
-          <S.WeatherName>{weatherType || ''}</S.WeatherName>
+          {weatherData?.current?.condition?.icon && (
+            <S.WeatherImg src={weatherData?.current?.condition?.icon} alt='' />
+          )}
+          <S.WeatherName>{weatherData?.current?.condition?.text || ''}</S.WeatherName>
         </S.WeatherType>
       </S.WrapperInner>
     </S.MainInfo>

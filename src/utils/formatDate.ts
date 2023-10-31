@@ -1,4 +1,4 @@
-function formatDate(inputDate: string) {
+function formatDate(inputDate?: string) {
   if (!inputDate) return '';
   // Parse the input date
   const parsedDate = new Date(inputDate);

@@ -2,31 +2,29 @@ import React, { FC, useEffect, useState } from 'react';
 import { useLocation, useSearchParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { Dispatch } from 'redux';
+import _ from 'lodash';
 
 import { fetchWeather } from 'redux/actions/fetchWeather';
 import Preloader from 'components/Preloader';
 import Search from 'components/Search';
 import Details from './components/Details';
 import Info from './components/Info';
-import { getURLParams } from 'utils/getURLParams';
-import formatDate from 'utils/formatDate';
 import { weatherDataProps } from 'types/weatherTypes';
 
 import * as S from './styles';
 
 type RootState = {
-  WeatherState?: {
-    weatherData: null | undefined;
+  WeatherState: {
+    weatherData: weatherDataProps;
+    isFetching: boolean;
   };
 };
 
 const Home: FC = () => {
   const location = useLocation();
-  const [city, setCity] = useState('');
   const [weatherData, setWeatherData] = useState<weatherDataProps | null>(null);
 
   const weatherSelector = useSelector((state: RootState) => state);
-
   const dispatch = useDispatch() as Dispatch<any>;
 
   const getWeatherInfo = (city: string) => {
@@ -34,50 +32,31 @@ const Home: FC = () => {
   };
 
   useEffect(() => {
-    if (weatherSelector?.WeatherState?.weatherData != null) {
-      setWeatherData(weatherSelector.WeatherState.weatherData);
-    }
+    setWeatherData(weatherSelector?.WeatherState?.weatherData);
   }, [weatherSelector.WeatherState]);
 
   useEffect(() => {
-    setCity(location.search.split('=')[1]);
-  }, [location.search]);
+    const city = location.search.split('=')[1];
 
-  useEffect(() => {
     if (city) {
       getWeatherInfo(city);
     }
-  }, [city]);
+  }, [location.search]);
+
+  if (weatherSelector?.WeatherState?.isFetching)
+    return <Preloader inscription='LOOKING OUTSIDE FOR YOU... ONE SEC' />;
 
   return (
     <S.Wrapper time={weatherData?.location?.localtime || ''} maxWidth='sm'>
       <Search errorText={weatherData?.error?.message} />
-      {!weatherData?.error && weatherData !== null && Object.keys(weatherData).length !== 0 ? (
+      {weatherSelector.WeatherState?.isFetching ||
+      (!weatherData?.error && !_.isEmpty(weatherData)) ? (
         <>
-          <Info
-            tempC={weatherData?.current?.temp_c}
-            cityName={weatherData?.location?.name}
-            country={weatherData?.location?.country}
-            time={formatDate(weatherData?.location?.localtime)}
-            icon={weatherData?.current?.condition?.icon}
-            weatherType={weatherData?.current?.condition?.text}
-          />
-          <Details
-            feelsLike={weatherData?.current?.feelslike_c}
-            pressure={weatherData?.current?.pressure_mb}
-            visibilityKM={weatherData?.current?.vis_km}
-            windKPH={weatherData?.current?.wind_kph}
-            windDirection={weatherData?.current?.wind_dir}
-          />
+          <Info weatherData={weatherData} />
+          <Details weatherData={weatherData} />
         </>
       ) : (
-        <Preloader
-          inscription={
-            getURLParams(location.search, 'q') && !weatherData?.error
-              ? 'LOOKING OUTSIDE FOR YOU... ONE SEC'
-              : 'WRITE YOUR REQUEST'
-          }
-        />
+        <Preloader inscription='WRITE YOUR REQUEST' />
       )}
     </S.Wrapper>
   );

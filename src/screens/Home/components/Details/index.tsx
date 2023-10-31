@@ -1,42 +1,46 @@
 import React, { FC } from 'react';
 
+import { weatherDataProps } from 'types/weatherTypes';
+
 import * as S from './styles';
 
 type DetailsProps = {
-  feelsLike?: number;
-  pressure?: number;
-  visibilityKM?: number;
-  windKPH?: number;
-  windDirection?: string;
+  weatherData: weatherDataProps | null;
 };
 
-const Details: FC<DetailsProps> = ({
-  feelsLike,
-  windKPH,
-  windDirection,
-  pressure,
-  visibilityKM,
-}) => {
+const Details: FC<DetailsProps> = ({ weatherData }) => {
   const items = [
     {
       name: 'Feels like',
-      value: feelsLike ? <>{feelsLike}&deg;</> : 'No data...',
+      value: weatherData?.current?.feelslike_c ? (
+        <>{weatherData?.current?.feelslike_c}&deg;</>
+      ) : (
+        'No data...'
+      ),
     },
     {
       name: 'Wind',
-      value: windKPH ? <>{windKPH} km/h</> : 'No data...',
+      value: weatherData?.current?.wind_kph ? (
+        <>{weatherData?.current?.wind_kph} km/h</>
+      ) : (
+        'No data...'
+      ),
     },
     {
       name: 'Wind direction',
-      value: windDirection ? windDirection : 'No data...',
+      value: weatherData?.current?.wind_dir ? weatherData?.current?.wind_dir : 'No data...',
     },
     {
       name: 'Pressure',
-      value: pressure ? <>{pressure} mb</> : 'No data...',
+      value: weatherData?.current?.pressure_mb ? (
+        <>{weatherData?.current?.pressure_mb} mb</>
+      ) : (
+        'No data...'
+      ),
     },
     {
       name: 'Visibility',
-      value: visibilityKM ? <>{visibilityKM} km</> : 'No data...',
+      value: weatherData?.current?.vis_km ? <>{weatherData?.current?.vis_km} km</> : 'No data...',
     },
   ];
 

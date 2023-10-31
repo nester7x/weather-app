@@ -22,8 +22,7 @@ const backgroundCheck = (time: string) => {
     return '45deg, #ff6b6b, #ffa07a';
   }
 
-  // Default color
-  return '45deg, #4CAF50, #FF5722';
+  return '';
 };
 
 export default backgroundCheck;
