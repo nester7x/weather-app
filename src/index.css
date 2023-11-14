@@ -1,5 +1,27 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap');
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: normal;
+  color: #f1f1f1;
+  background: linear-gradient(45deg, #4CAF50, #FF5722) center center no-repeat;
+  height: 100%;
+}
+
 #root {
   overflow: hidden;
   height: 100%;

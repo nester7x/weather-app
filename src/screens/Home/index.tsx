@@ -1,15 +1,15 @@
 import React, { FC, useEffect, useState } from 'react';
-import { useLocation, useSearchParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { Dispatch } from 'redux';
 import _ from 'lodash';
 
 import { fetchWeather } from 'redux/actions/fetchWeather';
+import { weatherDataProps } from 'types/weatherTypes';
 import Preloader from 'components/Preloader';
 import Search from 'components/Search';
-import Details from './components/Details';
 import Info from './components/Info';
-import { weatherDataProps } from 'types/weatherTypes';
+import Details from './components/Details';
 
 import * as S from './styles';
 
