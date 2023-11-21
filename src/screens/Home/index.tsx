@@ -44,19 +44,20 @@ const Home: FC = () => {
   }, [location.search]);
 
   if (weatherSelector?.WeatherState?.isFetching)
-    return <Preloader inscription='LOOKING OUTSIDE FOR YOU... ONE SEC' />;
+    return (
+      <S.Wrapper time={weatherData?.location?.localtime || ''}>
+        <Preloader inscription='LOOKING OUTSIDE FOR YOU... ONE SEC' />
+      </S.Wrapper>
+    );
 
   return (
     <S.Wrapper time={weatherData?.location?.localtime || ''} maxWidth='sm'>
       <Search errorText={weatherData?.error?.message} />
-      {weatherSelector.WeatherState?.isFetching ||
-      (!weatherData?.error && !_.isEmpty(weatherData)) ? (
+      {!weatherData?.error && !_.isEmpty(weatherData) && (
         <>
           <Info weatherData={weatherData} />
           <Details weatherData={weatherData} />
         </>
-      ) : (
-        <Preloader inscription='WRITE YOUR REQUEST' />
       )}
     </S.Wrapper>
   );
