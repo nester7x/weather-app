@@ -6,7 +6,6 @@ import _ from 'lodash';
 
 import { fetchWeather } from 'redux/actions/fetchWeather';
 import { weatherDataProps } from 'types/weatherTypes';
-import Preloader from 'components/Preloader';
 import Search from 'components/Search';
 import Info from './components/Info';
 import Details from './components/Details';
@@ -43,16 +42,12 @@ const Home: FC = () => {
     }
   }, [location.search]);
 
-  if (weatherSelector?.WeatherState?.isFetching)
-    return (
-      <S.Wrapper time={weatherData?.location?.localtime || ''}>
-        <Preloader inscription='LOOKING OUTSIDE FOR YOU... ONE SEC' />
-      </S.Wrapper>
-    );
-
   return (
     <S.Wrapper time={weatherData?.location?.localtime || ''} maxWidth='sm'>
-      <Search errorText={weatherData?.error?.message} />
+      <Search
+        errorText={weatherData?.error?.message}
+        isLoading={weatherSelector?.WeatherState?.isFetching}
+      />
       {!weatherData?.error && !_.isEmpty(weatherData) && (
         <>
           <Info weatherData={weatherData} />

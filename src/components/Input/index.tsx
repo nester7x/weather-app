@@ -11,6 +11,8 @@ type InputProps = {
   onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
   placeholder?: string;
   errorText?: string;
+  isLoading?: boolean;
+  loadingStyles?: React.CSSProperties;
   inputStyles?: React.CSSProperties;
 };
 
@@ -20,15 +22,20 @@ const Input: FC<InputProps> = ({
   value,
   type,
   errorText,
+  isLoading,
+  loadingStyles,
   placeholder,
   inputStyles,
   ...rest
 }) => (
   <S.Label>
+    <S.LoadingSpinner isLoading={isLoading} style={loadingStyles} />
     <S.InputStyled
       {...rest}
       style={inputStyles}
       name={name}
+      inputProps={{ isLoading: isLoading }}
+      disabled={isLoading}
       type={type}
       onChange={onChange}
       value={value}

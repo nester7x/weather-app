@@ -8,9 +8,10 @@ import * as S from './styles';
 
 type SearchProps = {
   errorText?: string;
+  isLoading?: boolean;
 };
 
-const Search: FC<SearchProps> = ({ errorText }) => {
+const Search: FC<SearchProps> = ({ errorText, isLoading }) => {
   const location = useLocation();
   const [searchParams, setSearchParams] = useSearchParams();
   const [searchValue, setSearchValue] = useState(
@@ -27,6 +28,7 @@ const Search: FC<SearchProps> = ({ errorText }) => {
 
   return (
     <S.SearchInput
+      isLoading={isLoading}
       name='search'
       errorText={errorText}
       value={searchValue}
