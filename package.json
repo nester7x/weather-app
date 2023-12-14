@@ -36,6 +36,7 @@
     "build": "react-scripts build",
     "dev": "webpack-dev-server",
     "test": "react-scripts test --watchAll --coverage --collectCoverageFrom='!src/**/*.{types,stories,constants,test,spec}.{ts,tsx}'",
+    "devTest": "react-scripts test --watchAll=false --coverage --collectCoverageFrom='!src/**/*.{types,stories,constants,test,spec}.{ts,tsx}'",
     "eject": "react-scripts eject",
     "lint": "eslint src/**/*.{js,jsx,ts,tsx,json}",
     "lint:fix": "eslint --fix 'src/**/*.{js,jsx,ts,tsx,json}'",
