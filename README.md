@@ -1,6 +1,5 @@
 ### Test coverage ![Lines](https://img.shields.io/badge/lines-8.1%25-red.svg?style=flat)
 
-
 ### `npm run dev`
 
 Runs the app in the development mode.\
