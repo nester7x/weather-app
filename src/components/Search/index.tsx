@@ -2,9 +2,9 @@ import React, { FC, useEffect, useState } from 'react';
 import { useLocation, useSearchParams } from 'react-router-dom';
 
 import useDebounce from 'hooks/useDebounce';
-import { getURLParams } from 'utils/getURLParams';
 
 import * as S from './styles';
+import getURLParams from '../../utils/getURLParams';
 
 type SearchProps = {
   errorText?: string;
