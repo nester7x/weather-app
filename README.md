@@ -1,4 +1,4 @@
-### Test coverage ![Lines](https://img.shields.io/badge/lines-14.18%25-red.svg?style=flat)
+### Test coverage ![Lines](https://img.shields.io/badge/lines-16.89%25-red.svg?style=flat)
 
 ### `npm run dev`
 
